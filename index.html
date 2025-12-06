@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrixan</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="logo">NX</div>
+      <div class="titlebox">
+        <h1 id="site-title">Nutrixan</h1>
+        <small>Your personal wellness companion</small>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="darkToggle" class="toggle" aria-pressed="false">🌙 Dark mode</button>
+    </div>
+  </div>
+
+  <nav id="main-nav">
+    <button data-section="home">Home</button>
+    <button data-section="progress">Progress</button>
+    <button data-section="commitment">Commitment</button>
+    <button data-section="workout">Workouts</button>
+    <button data-section="mental">Mental Health</button>
+    <button data-section="mood">Mood</button>
+    <button data-section="hydration">Hydration</button>
+    <button data-section="sleep">Sleep</button>
+    <button data-section="steps">Steps</button>
+    <button data-section="nutrition">Nutrition</button>
+    <button data-section="timer">Workout Timer</button>
+  </nav>
+</header>
+
+<main id="home" class="view active container">
+  <div class="grid two">
+    <section class="card">
+      <h2>Daily Nutrition Tip</h2>
+      <p class="tip" id="tip-of-the-day">Hydration is key! Drink a glass of water first thing in the morning.</p>
+      <button class="btn" onclick="generateTip()">Get a New Tip</button>
+    </section>
+
+    <section class="card">
+      <h2>Create Your Meal Plan</h2>
+      <form id="meal-form">
+        <label for="name">Name</label>
+        <input id="name" placeholder="Your name" required />
+        <label for="goal">Health Goal</label>
+        <select id="goal" required>
+          <option value="weight-loss">Weight Loss</option>
+          <option value="muscle-gain">Muscle Gain</option>
+          <option value="general-health">General Health</option>
+        </select>
+        <label for="preferences">Food Preferences</label>
+        <textarea id="preferences" placeholder="E.g., vegetarian, low-carb, no dairy"></textarea>
+        <button type="button" class="btn" onclick="submitMealPlan()">Generate Plan</button>
+      </form>
+      <div id="meal-plan-display" class="card" style="margin-top:10px;"></div>
+    </section>
+  </div>
+
+  <section id="cdc-bmi-calculator" class="card">
+    <h2>CDC BMI Calculator</h2>
+    <p class="muted">Use this tool to estimate your BMI.</p>
+    <iframe src="https://www.calculator.net/bmi-calculator.html" height="540" title="CDC BMI Calculator"></iframe>
+  </section>
+
+  <section class="card share-row">
+    <strong>Share your progress:</strong>
+    <button class="btn secondary" onclick="shareProgress()">📤 Share</button>
+    <span class="muted" id="shareStatus" aria-live="polite"></span>
+  </section>
+</main>
+
+<main id="progress" class="view container">
+  <section id="progress-tracker" class="card">
+    <h2>Track Your Progress</h2>
+    <form id="progress-form">
+      <label for="week">Week</label>
+      <input type="number" id="week" placeholder="Week number" min="1" required />
+      <label for="weight">Weight (lbs)</label>
+      <input type="number" id="weight" placeholder="Your current weight" required />
+      <label for="notes">Notes</label>
+      <textarea id="notes" placeholder="Describe your progress"></textarea>
+      <button type="button" class="btn" onclick="submitProgress()">Update Progress</button>
+    </form>
+    <div id="progress-display" class="card" style="margin-top:10px;"></div>
+  </section>
+</main>
+
+<main id="commitment" class="view container">
+  <div class="grid two">
+    <section id="commitment-calendar" class="card">
+      <h2>Commitment Calendar</h2>
+      <p class="muted">Tap days you achieved your goals.</p>
+      <div class="calendar" id="calendar"></div>
+      <div id="points-display" class="card" style="margin-top:10px;">Your Points: <strong id="points">0</strong></div>
+    </section>
+
+    <section id="rewards" class="card">
+      <h2>Rewards</h2>
+      <p class="muted">Redeem your points for healthy rewards.</p>
+      <div id="rewards-list" class="grid">
+        <div class="reward-item card">
+          <strong>Health Journal</strong> — 15 pts
+          <button class="btn" onclick="redeemReward('Health Journal', 15)">Redeem</button>
+        </div>
+        <div class="reward-item card">
+          <strong>Yoga Mat</strong> — 25 pts
+          <button class="btn" onclick="redeemReward('Yoga Mat', 25)">Redeem</button>
+        </div>
+        <div class="reward-item card">
+          <strong>Protein Shaker Bottle</strong> — 60 pts
+          <button class="btn" onclick="redeemReward('Protein Shaker Bottle', 60)">Redeem</button>
+        </div>
+      </div>
+      <p id="reward-message" style="margin-top:8px;"></p>
+    </section>
+  </div>
+</main>
+
+<main id="workout" class="view container">
+  <section id="workout-recommendations" class="card">
+    <h2>Find the Perfect Workout for You</h2>
+    <form id="workout-form">
+      <label for="workout-goal">Fitness Goal</label>
+      <select id="workout-goal" required>
+        <option value="weight-loss">Weight Loss</option>
+        <option value="muscle-gain">Muscle Gain</option>
+        <option value="general-fitness">General Fitness</option>
+      </select>
+      <label for="experience">Experience Level</label>
+      <select id="experience" required>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+      </select>
+      <label for="equipment">Equipment Available</label>
+      <select id="equipment" required>
+        <option value="none">None</option>
+        <option value="basic">Basic (bands/dumbbells)</option>
+        <option value="full">Full (gym)</option>
+      </select>
+      <button type="button" class="btn" onclick="recommendWorkouts()">Get Recommendations</button>
+    </form>
+    <div id="workout-display" class="workout-display card" style="margin-top:10px;">
+      <h3>Your Plan</h3>
+      <div id="workout-results" class="muted">Pick your options to see a plan.</div>
+    </div>
+  </section>
+</main>
+
+<main id="mental" class="view container">
+  <section id="mental-health" class="card">
+    <h2>Daily Tips for Your Mental Well-Being</h2>
+    <ul>
+      <li>Practice mindfulness: 5–10 minutes of breathing.</li>
+      <li>Stay connected with friends or family.</li>
+      <li>Move your body—endorphins help.</li>
+      <li>Aim for 7–9 hours of sleep.</li>
+      <li>Limit screen time & take breaks.</li>
+    </ul>
+
+    <h3>Helpful Resources</h3>
+    <ul>
+      <li><a href="https://www.who.int/mental_health/en/" target="_blank">WHO: Mental Health</a></li>
+      <li><a href="https://www.nimh.nih.gov/" target="_blank">NIMH</a></li>
+      <li><a href="https://www.mentalhealth.gov/" target="_blank">MentalHealth.gov</a></li>
+      <li><a href="https://www.betterhelp.com/" target="_blank">BetterHelp</a></li>
+    </ul>
+
+    <h3>Affirmations</h3>
+    <p id="affirmation">You are stronger than you think.</p>
+  </section>
+</main>
+
+<main id="mood" class="view container">
+  <section id="mood-tracker" class="card">
+    <h2>How Are You Feeling Today?</h2>
+    <form id="mood-form">
+      <label for="mood-select">Mood</label>
+      <select id="mood-select" required>
+        <option value="happy">Happy 😊</option>
+        <option value="neutral">Neutral 😐</option>
+        <option value="sad">Sad 😔</option>
+        <option value="anxious">Anxious 😟</option>
+        <option value="excited">Excited 😄</option>
+      </select>
+      <label for="mood-notes">Notes (Optional)</label>
+      <textarea id="mood-notes" placeholder="Share your thoughts..."></textarea>
+      <button type="button" class="btn" onclick="logMood()">Submit Mood</button>
+    </form>
+    <div id="mood-log" class="card" style="margin-top:10px;">
+      <h3>Your Mood History</h3>
+      <ul id="mood-history"></ul>
+    </div>
+  </section>
+</main>
+
+<main id="hydration" class="view container">
+  <section id="hydration-tracker" class="card">
+    <h2>Hydration Tracker</h2>
+    <p class="muted">Glasses drunk: <strong><span id="water-count">0</span> / 8</strong></p>
+    <button class="btn" onclick="addWater()">Add a Glass</button>
+    <button class="btn secondary" onclick="resetHydration()">Reset</button>
+  </section>
+</main>
+
+<main id="sleep" class="view container">
+  <section id="sleep-tracker" class="card">
+    <h2>Sleep Tracker</h2>
+    <form id="sleep-form">
+      <label for="sleep-date">Date</label>
+      <input type="date" id="sleep-date" required />
+      <label for="sleep-duration">Hours Slept</label>
+      <input type="number" id="sleep-duration" placeholder="e.g., 7.5" step="0.1" min="0" required />
+      <label for="sleep-notes">Notes (Optional)</label>
+      <textarea id="sleep-notes" placeholder="Describe your sleep..."></textarea>
+      <button type="button" class="btn" onclick="logSleep()">Log Sleep</button>
+    </form>
+    <div id="sleep-log" class="card" style="margin-top:10px;">
+      <h3>Your Sleep History</h3>
+      <ul id="sleep-history">
+        <p class="muted">No sleep data yet.</p>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<main id="steps" class="view container">
+  <section class="card">
+    <h2>Step Counter</h2>
+    <p class="muted">Manual entry for now—device sync can come later.</p>
+    <div class="grid two">
+      <div class="card">
+        <label for="steps-today">Steps today</label>
+        <input id="steps-today" type="number" min="0" placeholder="e.g., 3500" />
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn" onclick="addSteps()">➕ Add</button>
+          <button class="btn secondary" onclick="resetSteps()">Reset Today</button>
+        </div>
+        <p style="margin:10px 0 0">Total today: <strong id="steps-total">0</strong></p>
+      </div>
+      <div class="card">
+        <h3>History</h3>
+        <ul id="steps-history"></ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="nutrition" class="view container">
+  <section class="card">
+    <h2>Nutrition Log</h2>
+    <form id="nutrition-form" class="grid three">
+      <div>
+        <label for="food-name">Food</label>
+        <input id="food-name" placeholder="e.g., Oatmeal" required />
+      </div>
+      <div>
+        <label for="food-cal">Calories</label>
+        <input id="food-cal" type="number" min="0" placeholder="e.g., 150" />
+      </div>
+      <div>
+        <label for="food-notes">Notes</label>
+        <input id="food-notes" placeholder="e.g., 20g protein, no sugar" />
+      </div>
+      <button type="submit" class="btn">Add Entry</button>
+    </form>
+
+    <div class="card" style="margin-top:12px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Food</th>
+            <th>Calories</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="nutrition-entries"></tbody>
+        <tfoot>
+          <tr>
+            <th colspan="2">Total</th>
+            <th id="cal-total">0</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+</main>
+
+<main id="timer" class="view container">
+  <section class="card">
+    <h2>Workout Timer</h2>
+    <div class="grid two">
+      <div class="card">
+        <h3>Stopwatch</h3>
+        <p id="stopwatch-display" style="font-size:2rem; font-weight:700;">00:00.0</p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn" onclick="stopwatchStart()">Start</button>
+          <button class="btn secondary" onclick="stopwatchStop()">Stop</button>
+          <button class="btn secondary" onclick="stopwatchReset()">Reset</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Intervals</h3>
+        <label for="int-work">Work (sec)</label>
+        <input id="int-work" type="number" min="5" value="30" />
+        <label for="int-rest">Rest (sec)</label>
+        <input id="int-rest" type="number" min="5" value="15" />
+        <label for="int-rounds">Rounds</label>
+        <input id="int-rounds" type="number" min="1" value="8" />
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn" onclick="intervalStart()">Start Intervals</button>
+          <button class="btn secondary" onclick="intervalStop()">Stop</button>
+        </div>
+        <p id="int-status" class="muted">Idle</p>
+        <audio id="beep" preload="auto">
+          <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBIAAAABAAEAESsAACJWAAACABYAAAACAAACAAAA" type="audio/wav">
+        </audio>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="container">
+  <p>Contact: <a href="mailto:smannava5@gmail.com">smannava5@gmail.com</a> • Phone: +1 (973) 771-3616</p>
+  <p>© <span id="year"></span> Nutrixan • <a href="#" onclick="showSection('home');return false;">Back to Home</a></p>
+</footer>
+
+<div id="nx-chat-fab" aria-label="Open chat">💬</div>
+<div id="nx-chat-panel" role="dialog" aria-modal="true" aria-labelledby="nx-chat-title">
+  <div class="nx-chat-header">
+    <strong id="nx-chat-title">Nutrixan Assistant</strong>
+    <button id="nx-chat-close" class="toggle" style="background:#ffffff22;">✕</button>
+  </div>
+  <div id="nx-chat-log" aria-live="polite"></div>
+  <form id="nx-chat-form">
+    <label class="sr-only" for="nx-chat-input">Ask Nutrixan</label>
+    <input id="nx-chat-input" placeholder="Ask me about meals, workouts, hydration…" required />
+    <button type="submit" class="btn">Send</button>
+  </form>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

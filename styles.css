@@ -1,0 +1,390 @@
+:root {
+  --bg: #f6faf7;
+  --card: #ffffff;
+  --text: #222;
+  --muted: #666;
+  --brand1: #4caf50;
+  --brand2: #45a049;
+  --accent: #e7f3e7;
+  --border: #e6e6e6;
+}
+.dark {
+  --bg: #0e1113;
+  --card: #181c1f;
+  --text: #e9eef2;
+  --muted: #a9b6c1;
+  --brand1: #66d17a;
+  --brand2: #45bb65;
+  --accent: #142b19;
+  --border: #253039;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: linear-gradient(90deg, var(--brand1), var(--brand2));
+  color: #fff;
+  text-align: center;
+  padding: 28px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.2px;
+}
+header p {
+  margin: 8px 0 0;
+  opacity: 0.95;
+}
+.header-row {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #fff3;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.titlebox {
+  text-align: left;
+}
+.titlebox small {
+  display: block;
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff22;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px;
+  background: transparent;
+}
+nav button {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+nav button:hover {
+  border-color: var(--brand1);
+  color: var(--brand1);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 18px auto;
+  padding: 0 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+section {
+  margin: 18px 0;
+}
+h2 {
+  color: var(--brand1);
+  margin: 0 0 10px;
+}
+.muted {
+  color: var(--muted);
+}
+
+.view {
+  display: none;
+}
+.view.active {
+  display: block;
+}
+
+.tip {
+  background: var(--accent);
+  border-left: 5px solid var(--brand1);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+}
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, var(--brand1), var(--brand2));
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.btn.secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn.warn {
+  background: linear-gradient(90deg, #f44336, #ff7043);
+}
+
+/* Grid helpers */
+.grid {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 760px) {
+  .grid.two {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Calendar */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.day {
+  user-select: none;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+.day:hover {
+  transform: scale(1.03);
+}
+.day.selected {
+  background: var(--brand1);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Workout display */
+.workout-display ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.workout-display li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+/* Sleep log list */
+#sleep-history,
+#mood-history,
+#nutrition-entries,
+#steps-history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#sleep-history li,
+#mood-history li,
+#steps-history li {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+/* Table (nutrition) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+}
+th {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* Share banner */
+.share-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Chat widget */
+#nx-chat-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(90deg, var(--brand1), var(--brand2));
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+#nx-chat-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 84px;
+  width: 320px;
+  max-height: 70vh;
+  display: none;
+  flex-direction: column;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 9999;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+.nx-chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--brand1);
+  color: #fff;
+}
+#nx-chat-log {
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 55vh;
+}
+.nx-msg {
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--accent);
+}
+.nx-msg.user {
+  background: #e8eefc;
+}
+#nx-chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid var(--border);
+}
+#nx-chat-input {
+  flex: 1;
+}
+#nx-chat-form button {
+  padding: 10px 14px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+iframe {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+}
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px 12px;
+}
+footer a {
+  color: var(--brand1);
+  text-decoration: none;
+}
